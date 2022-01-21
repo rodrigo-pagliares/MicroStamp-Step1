@@ -32,6 +32,7 @@ public class ProjectBusiness {
         projectEntity.setDescription(projectDto.getDescription());
         projectEntity.setUrl(projectDto.getUrl());
         projectEntity.setType(projectDto.getType());
+        projectEntity.setExternalId(projectDto.getExternalId());
         projectEntityRepository.save(projectEntity);
         return projectEntity;
     }

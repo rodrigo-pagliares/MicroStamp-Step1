@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProjectEntityRepository extends JpaRepository<ProjectEntity, Long> {
 
+    ProjectEntity findByExternalId(Long id);
 }
