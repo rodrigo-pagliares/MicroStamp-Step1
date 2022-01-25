@@ -37,6 +37,12 @@ public class HazardBusiness {
         return hazardEntity;
     }
 
+    public List<HazardEntity> findByProjectId(Long id) throws Step1NotFoundException{
+        List<HazardEntity> hazardEntities = hazardEntityRepository.findByProjectId(id)
+                .orElseThrow(() -> new Step1NotFoundException("Hazards not found with projectId: " + id));
+        return hazardEntities;
+    }
+
     public HazardEntity insert(HazardDto hazardDto){
         HazardEntity hazardEntity = new HazardEntity();
         hazardEntity.setName(hazardDto.getName());

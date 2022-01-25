@@ -31,6 +31,12 @@ public class AssumptionBusiness {
         return assumptionEntity;
     }
 
+    public List<AssumptionEntity> findByProjectId(Long id) throws Step1NotFoundException{
+        List<AssumptionEntity> assumptionEntities = assumptionEntityRepository.findByProjectId(id)
+                .orElseThrow(() -> new Step1NotFoundException("Assumptions not found with projectId: " + id));
+        return assumptionEntities;
+    }
+
     public AssumptionEntity insert(AssumptionDto assumptionDto){
         AssumptionEntity assumptionEntity = new AssumptionEntity();
         assumptionEntity.setName(assumptionDto.getName());

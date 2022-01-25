@@ -26,13 +26,18 @@ public class ProjectBusiness {
         return projectEntity;
     }
 
+    public ProjectEntity findByUrl(String url) throws Step1NotFoundException{
+        ProjectEntity projectEntity = projectEntityRepository.findByUrl(url)
+                .orElseThrow(() -> new Step1NotFoundException("Project not found with url: " + url));
+        return projectEntity;
+    }
+
     public ProjectEntity insert(ProjectDto projectDto){
         ProjectEntity projectEntity = new ProjectEntity();
         projectEntity.setName(projectDto.getName());
         projectEntity.setDescription(projectDto.getDescription());
         projectEntity.setUrl(projectDto.getUrl());
         projectEntity.setType(projectDto.getType());
-        projectEntity.setExternalId(projectDto.getExternalId());
         projectEntityRepository.save(projectEntity);
         return projectEntity;
     }

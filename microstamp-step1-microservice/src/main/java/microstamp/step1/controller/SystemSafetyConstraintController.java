@@ -28,6 +28,11 @@ public class SystemSafetyConstraintController {
         return new ResponseEntity<>(systemSafetyConstraintBusiness.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/findByProjectId/{id}")
+    public ResponseEntity<List<SystemSafetyConstraintEntity>> findByProjectId(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
+        return new ResponseEntity<>(systemSafetyConstraintBusiness.findByProjectId(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<SystemSafetyConstraintEntity> insert(@RequestBody SystemSafetyConstraintDto systemSafetyConstraintDto){
         return new ResponseEntity<>(systemSafetyConstraintBusiness.insert(systemSafetyConstraintDto), HttpStatus.CREATED);

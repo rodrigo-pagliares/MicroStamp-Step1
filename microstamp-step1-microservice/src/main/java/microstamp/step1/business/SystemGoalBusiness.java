@@ -32,14 +32,19 @@ public class SystemGoalBusiness {
         return systemGoalEntity;
     }
 
+    public List<SystemGoalEntity> findByProjectId(Long id) throws Step1NotFoundException{
+        List<SystemGoalEntity> systemGoalEntities = systemGoalEntityRepository.findByProjectId(id)
+                .orElseThrow(() -> new Step1NotFoundException("SystemGoals not found with projectId: " + id));
+        return systemGoalEntities;
+    }
+
     public SystemGoalDto insert(SystemGoalDto systemGoalDto){
         SystemGoalEntity systemGoalEntity = new SystemGoalEntity();
         systemGoalEntity.setName(systemGoalDto.getName());
-        //ProjectEntity projectEntity = projectEntityRepository.findById(systemGoalDto.getProjectId()).get();
-        ProjectEntity projectEntity = projectEntityRepository.findByExternalId(systemGoalDto.getProjectId());
+        ProjectEntity projectEntity = projectEntityRepository.getById(systemGoalDto.getProjectId());
         projectEntity.getSystemGoalEntities().add(systemGoalEntity);
         projectEntityRepository.save(projectEntity);
-        return SystemGoalConverter.toDto(systemGoalEntity, projectEntity.getExternalId());
+        return SystemGoalConverter.toDto(systemGoalEntity, projectEntity.getId());
     }
 
     public void update(Long id, SystemGoalDto systemGoalDto) throws Step1NotFoundException{

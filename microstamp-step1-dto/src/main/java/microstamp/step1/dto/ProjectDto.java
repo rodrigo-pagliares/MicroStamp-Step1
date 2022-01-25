@@ -12,17 +12,14 @@ public class ProjectDto {
 
     private String type;
 
-    private Long externalId;
-
     public ProjectDto(){
     }
 
-    public ProjectDto(String name, String description, String url, String type, Long externalId) {
+    public ProjectDto(String name, String description, String url, String type) {
         this.name = name;
         this.description = description;
         this.url = url;
         this.type = type;
-        this.externalId = externalId;
     }
 
     public String getName() {
@@ -57,14 +54,6 @@ public class ProjectDto {
         this.type = type;
     }
 
-    public Long getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(Long externalId) {
-        this.externalId = externalId;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -73,13 +62,12 @@ public class ProjectDto {
         return Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(url, that.url) &&
-                Objects.equals(type, that.type) &&
-                Objects.equals(externalId, that.externalId);
+                Objects.equals(type, that.type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, url, type, externalId);
+        return Objects.hash(name, description, url, type);
     }
 
     @Override
@@ -89,7 +77,6 @@ public class ProjectDto {
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
                 ", type='" + type + '\'' +
-                ", externalId=" + externalId +
                 '}';
     }
 }

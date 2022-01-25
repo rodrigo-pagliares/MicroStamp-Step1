@@ -28,6 +28,11 @@ public class LossController {
         return new ResponseEntity<>(lossBusiness.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/findByProjectId/{id}")
+    public ResponseEntity<List<LossEntity>> findByProjectId(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
+        return new ResponseEntity<>(lossBusiness.findByProjectId(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<LossEntity> insert(@RequestBody LossDto lossDto){
         return new ResponseEntity<>(lossBusiness.insert(lossDto), HttpStatus.CREATED);

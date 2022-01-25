@@ -31,6 +31,12 @@ public class LossBusiness {
         return lossEntity;
     }
 
+    public List<LossEntity> findByProjectId(Long id) throws Step1NotFoundException{
+        List<LossEntity> lossEntities = lossEntityRepository.findByProjectId(id)
+                .orElseThrow(() -> new Step1NotFoundException("Losses not found with projectId: " + id));
+        return lossEntities;
+    }
+
     public LossEntity insert(LossDto lossDto){
         LossEntity lossEntity = new LossEntity();
         lossEntity.setName(lossDto.getName());

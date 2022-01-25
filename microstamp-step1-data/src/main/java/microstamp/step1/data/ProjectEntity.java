@@ -11,8 +11,6 @@ public class ProjectEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private Long externalId;
-
     private String name;
 
     private String description;
@@ -40,9 +38,8 @@ public class ProjectEntity {
     public ProjectEntity() {
     }
 
-    public ProjectEntity(Long id, Long externalId, String name, String description, String url, String type, List<HazardEntity> hazardEntities, List<LossEntity> lossEntities, List<SystemGoalEntity> systemGoalEntities, List<AssumptionEntity> assumptionEntities) {
+    public ProjectEntity(Long id, String name, String description, String url, String type, List<HazardEntity> hazardEntities, List<LossEntity> lossEntities, List<SystemGoalEntity> systemGoalEntities, List<AssumptionEntity> assumptionEntities) {
         this.id = id;
-        this.externalId = externalId;
         this.name = name;
         this.description = description;
         this.url = url;
@@ -59,14 +56,6 @@ public class ProjectEntity {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getExternalId() {
-        return externalId;
-    }
-
-    public void setExternalId(Long externalId) {
-        this.externalId = externalId;
     }
 
     public String getName() {
@@ -139,7 +128,6 @@ public class ProjectEntity {
         if (o == null || getClass() != o.getClass()) return false;
         ProjectEntity that = (ProjectEntity) o;
         return Objects.equals(id, that.id) &&
-                Objects.equals(externalId, that.externalId) &&
                 Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(url, that.url) &&
@@ -152,14 +140,13 @@ public class ProjectEntity {
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, externalId, name, description, url, type, hazardEntities, lossEntities, systemGoalEntities, assumptionEntities);
+        return Objects.hash(id, name, description, url, type, hazardEntities, lossEntities, systemGoalEntities, assumptionEntities);
     }
 
     @Override
     public String toString() {
         return "ProjectEntity{" +
                 "id=" + id +
-                ", externalId=" + externalId +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
