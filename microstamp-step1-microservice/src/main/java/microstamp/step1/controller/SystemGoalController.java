@@ -28,8 +28,13 @@ public class SystemGoalController {
         return new ResponseEntity<>(systemGoalBusiness.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/findByProjectId/{id}")
+    public ResponseEntity<List<SystemGoalEntity>> findByProjectId(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
+        return new ResponseEntity<>(systemGoalBusiness.findByProjectId(id), HttpStatus.OK);
+    }
+
     @PostMapping
-    public ResponseEntity<SystemGoalEntity> insert(@RequestBody SystemGoalDto systemGoalDto){
+    public ResponseEntity<SystemGoalDto> insert(@RequestBody SystemGoalDto systemGoalDto){
         return new ResponseEntity<>(systemGoalBusiness.insert(systemGoalDto), HttpStatus.CREATED);
     }
 

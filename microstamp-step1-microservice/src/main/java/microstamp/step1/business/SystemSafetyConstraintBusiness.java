@@ -31,6 +31,12 @@ public class SystemSafetyConstraintBusiness {
         return systemSafetyConstraintEntity;
     }
 
+    public List<SystemSafetyConstraintEntity> findByProjectId(Long id) throws Step1NotFoundException{
+        List<SystemSafetyConstraintEntity> systemSafetyConstraintEntities = systemSafetyConstraintEntityRepository.findByProjectId(id)
+                .orElseThrow(() -> new Step1NotFoundException("SystemSafetyConstraint not found with projectId: " + id));
+        return systemSafetyConstraintEntities;
+    }
+
     public SystemSafetyConstraintEntity insert(SystemSafetyConstraintDto systemSafetyConstraintDto){
         SystemSafetyConstraintEntity systemSafetyConstraintEntity = new SystemSafetyConstraintEntity();
         systemSafetyConstraintEntity.setName(systemSafetyConstraintDto.getName());

@@ -28,6 +28,11 @@ public class AssumptionController {
         return new ResponseEntity<>(assumptionBusiness.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/findByProjectId/{id}")
+    public ResponseEntity<List<AssumptionEntity>> findByProjectId(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
+        return new ResponseEntity<>(assumptionBusiness.findByProjectId(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<AssumptionEntity> insert(@RequestBody AssumptionDto assumptionDto){
         return new ResponseEntity<>(assumptionBusiness.insert(assumptionDto), HttpStatus.CREATED);

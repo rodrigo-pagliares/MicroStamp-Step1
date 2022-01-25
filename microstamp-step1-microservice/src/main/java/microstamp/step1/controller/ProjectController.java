@@ -28,6 +28,11 @@ public class ProjectController {
         return new ResponseEntity<>(projectBusiness.findById(id), HttpStatus.OK);
     }
 
+    @GetMapping("/findByUrl/{url}")
+    public ResponseEntity<ProjectEntity> findByUrl(@PathVariable(name = "url") String url) throws Step1NotFoundException {
+        return new ResponseEntity<>(projectBusiness.findByUrl(url), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ProjectEntity> insert(@RequestBody ProjectDto projectDto){
         return new ResponseEntity<>(projectBusiness.insert(projectDto), HttpStatus.CREATED);
