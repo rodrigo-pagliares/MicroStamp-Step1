@@ -2,11 +2,11 @@ package microstamp.step1.dto;
 
 import java.util.Objects;
 
-public class SystemGoalDto {
+    public class SystemGoalDto {
 
-    private String name;
+        private String name;
 
-    private Long projectId;
+        private Long projectId;
 
     public SystemGoalDto() {
     }

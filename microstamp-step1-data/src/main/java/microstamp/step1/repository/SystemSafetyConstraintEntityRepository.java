@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface SystemSafetyConstraintEntityRepository extends JpaRepository<SystemSafetyConstraintEntity, Long> {
 
-    @Query(value = "SELECT * FROM system_safety_constraint_entity WHERE project_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM system_safety_constraint_entity as s join hazard_entity as h WHERE s.id = h.ssc_id AND project_id = ?1", nativeQuery = true)
     Optional<List<SystemSafetyConstraintEntity>> findByProjectId(Long id);
 
 }
