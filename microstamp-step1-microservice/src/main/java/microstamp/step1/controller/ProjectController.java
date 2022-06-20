@@ -33,6 +33,11 @@ public class ProjectController {
         return new ResponseEntity<>(projectBusiness.findByUrl(url), HttpStatus.OK);
     }
 
+    @GetMapping(path = {"user/{id}"})
+    public ResponseEntity<List<ProjectEntity>> findByUserId(@PathVariable long id){
+        return new ResponseEntity<>(projectBusiness.findByUserId(id), HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<ProjectEntity> insert(@RequestBody ProjectDto projectDto){
         return new ResponseEntity<>(projectBusiness.insert(projectDto), HttpStatus.CREATED);

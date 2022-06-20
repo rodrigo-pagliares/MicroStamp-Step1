@@ -43,15 +43,28 @@ public class HazardBusiness {
         return hazardEntities;
     }
 
+    public List<HazardEntity> findUnselectedHazardsByProject(Long id) throws Step1NotFoundException{
+        List<HazardEntity> hazardEntities = hazardEntityRepository.findUnselectedHazardsByProject(id)
+                .orElseThrow(() -> new Step1NotFoundException("Unselected Hazards not found with projectId: " + id));
+        return hazardEntities;
+    }
+
     public HazardEntity insert(HazardDto hazardDto){
         HazardEntity hazardEntity = new HazardEntity();
         hazardEntity.setName(hazardDto.getName());
 
         List<LossEntity> lossEntities = new ArrayList<>();
-        for(Long id : hazardDto.getLossIds())
-            lossEntities.add(lossEntityRepository.findById(id).get());
-
+        if(hazardDto.getLossIds() != null) {
+            for (Long id : hazardDto.getLossIds())
+                lossEntities.add(lossEntityRepository.findById(id).get());
+        }
         hazardEntity.setLossEntities(lossEntities);
+        try{
+            HazardEntity father = hazardEntityRepository.findById(hazardDto.getFatherId()).get();
+            hazardEntity.setFather(father);
+        }catch (Exception ex){
+            hazardEntity.setFather(null);
+        }
         ProjectEntity projectEntity = projectEntityRepository.findById(hazardDto.getProjectId()).get();
         projectEntity.getHazardEntities().add(hazardEntity);
         projectEntityRepository.save(projectEntity);
@@ -63,20 +76,38 @@ public class HazardBusiness {
                 .map(record -> {
                     record.setName(hazardDto.getName());
                     List<LossEntity> lossEntities = new ArrayList<>();
-                    for(Long lossId : hazardDto.getLossIds())
-                        lossEntities.add(lossEntityRepository.findById(lossId).get());
+                    if(hazardDto.getLossIds() != null) {
+                        for (Long lossId : hazardDto.getLossIds())
+                            lossEntities.add(lossEntityRepository.findById(lossId).get());
+                    }
                     record.setLossEntities(lossEntities);
+                    try{
+                        HazardEntity father = hazardEntityRepository.findById(hazardDto.getFatherId()).get();
+                        record.setFather(father);
+                    }catch(Exception ex){
+                        record.setFather(null);
+                    }
                     return hazardEntityRepository.save(record);
                 }).orElseThrow(() -> new Step1NotFoundException("Hazard not found with id: " + id));
     }
 
     public void delete(Long id) throws Step1NotFoundException{
-        hazardEntityRepository.findById(id)
-                .map(record -> {
-                    record.setLossEntities(null);
-                    hazardEntityRepository.deleteById(id);
-                    return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new Step1NotFoundException("Hazard not found with id: " + id));
+        deleteHazardAndChildren(id);
+    }
+
+    public void deleteHazardAndChildren(Long id){
+        List<HazardEntity> children = hazardEntityRepository.findHazardChildren(id).get();
+        System.out.println("deleting..." + id);
+        for(HazardEntity h : children){
+            //h.setLossEntities(null);
+            //hazardEntityRepository.save(h);
+            System.out.println("trying delete..." + h.getId());
+            deleteHazardAndChildren(h.getId());
+            System.out.println("finally deleting..." + id);
+
+        }
+        hazardEntityRepository.deleteLossesAssociated(id);
+        hazardEntityRepository.deleteById(id);
     }
 
 }

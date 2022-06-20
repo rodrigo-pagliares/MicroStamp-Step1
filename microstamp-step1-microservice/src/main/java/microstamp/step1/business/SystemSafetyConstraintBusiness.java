@@ -49,6 +49,18 @@ public class SystemSafetyConstraintBusiness {
     }
 
     public void update(Long id, SystemSafetyConstraintDto systemSafetyConstraintDto) throws Step1NotFoundException{
+
+        //segredinho horrivel nojento so quero formar socorro
+        List<HazardEntity> hazards = hazardEntityRepository.findAll();
+        for(HazardEntity hazard : hazards){
+            if(hazard.getSystemSafetyConstraintEntity() != null) {
+                if (hazard.getSystemSafetyConstraintEntity().getId().equals(id)) {
+                    hazard.setSystemSafetyConstraintEntity(null);
+                    hazardEntityRepository.save(hazard);
+                }
+            }
+        }
+
         systemSafetyConstraintEntityRepository.findById(id)
                 .map(record -> {
                     record.setName(systemSafetyConstraintDto.getName());
