@@ -18,7 +18,6 @@ plugins {
 
 apply plugin: 'java'
 
-
 group = 'microstamp'
 version = '2.0'
 sourceCompatibility = '1.8'
@@ -30,7 +29,6 @@ def javaProjects() {
 dependencies {
 
 }
-
 
 allprojects {
 	apply plugin: 'java'
@@ -46,5 +44,10 @@ allprojects {
 		mavenCentral()
 	}
 }
+
+bootJar {
+	enabled = false
+}
+
 
 

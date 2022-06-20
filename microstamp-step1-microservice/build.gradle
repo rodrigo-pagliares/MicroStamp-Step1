@@ -36,6 +36,13 @@ apply plugin: 'org.springframework.boot'
 apply plugin: "io.spring.dependency-management"
 apply plugin: 'application'
 
+mainClassName = 'microstamp.step1.Step1Application'
+
+
+jar {
+	enabled = true
+}
+
 test {
 	useJUnitPlatform()
 }
