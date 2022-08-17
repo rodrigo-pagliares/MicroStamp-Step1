@@ -175,25 +175,6 @@
         </div>
     </div>
 
-    <div class="modal fade" id="hazardRestrictionModal" tabindex="-1" role="dialog" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Exception</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close" onclick=returnHazardRestriction()>
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    Exception: can't link a Hazard to multiple System Safety Constraints !
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick=returnHazardRestriction()>Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <div class="modal fade" id="addSystemGoalModal" tabindex="-1" role="dialog" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -533,8 +514,8 @@
                             <input type="text" class="form-control" id="system-safety-constraint-name">
                         </div>
                         <div class="form-group">
-                            <label for="system-safety-constraint-hazard" class="col-form-label">Hazard:</label>
-                            <select id="system-safety-constraint-hazard" class="form-control">
+                            <label for="system-safety-constraint-hazards" class="col-form-label">Hazards:</label>
+                            <select id="system-safety-constraint-hazards" class="form-control" multiple>
                                 <option th:each="h : ${hazards}" th:value="${h.id}" th:text="${h.name}"/>
                             </select>
                         </div>
@@ -564,8 +545,8 @@
                             <input type="text" class="form-control" id="system-safety-constraint-edit-name">
                         </div>
                         <div class="form-group">
-                            <label for="system-safety-constraint-edit-hazard" class="col-form-label">Hazard:</label>
-                            <select id="system-safety-constraint-edit-hazard" class="form-control">
+                            <label for="system-safety-constraint-edit-hazards" class="col-form-label">Hazards:</label>
+                            <select id="system-safety-constraint-edit-hazards" class="form-control" multiple>
                                 <option th:each="h : ${hazards}" th:value="${h.id}" th:text="${h.name}"/>
                             </select>
                         </div>

@@ -4,7 +4,8 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "projects")
+@Table(name = "projects")
 public class ProjectEntity {
 
     @Id
@@ -35,10 +36,14 @@ public class ProjectEntity {
     @JoinColumn(name = "project_id")
     private List<AssumptionEntity> assumptionEntities;
 
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "project_id")
+    private List<SystemSafetyConstraintEntity> systemSafetyConstraintEntities;
+
     public ProjectEntity() {
     }
 
-    public ProjectEntity(Long id, String name, String description, String url, String type, List<HazardEntity> hazardEntities, List<LossEntity> lossEntities, List<SystemGoalEntity> systemGoalEntities, List<AssumptionEntity> assumptionEntities) {
+    public ProjectEntity(Long id, String name, String description, String url, String type, List<HazardEntity> hazardEntities, List<LossEntity> lossEntities, List<SystemGoalEntity> systemGoalEntities, List<AssumptionEntity> assumptionEntities, List<SystemSafetyConstraintEntity> systemSafetyConstraintEntities) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -48,6 +53,7 @@ public class ProjectEntity {
         this.lossEntities = lossEntities;
         this.systemGoalEntities = systemGoalEntities;
         this.assumptionEntities = assumptionEntities;
+        this.systemSafetyConstraintEntities = systemSafetyConstraintEntities;
     }
 
     public Long getId() {
@@ -122,6 +128,14 @@ public class ProjectEntity {
         this.assumptionEntities = assumptionEntities;
     }
 
+    public List<SystemSafetyConstraintEntity> getSystemSafetyConstraintEntities() {
+        return systemSafetyConstraintEntities;
+    }
+
+    public void setSystemSafetyConstraintEntities(List<SystemSafetyConstraintEntity> systemSafetyConstraintEntities) {
+        this.systemSafetyConstraintEntities = systemSafetyConstraintEntities;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -135,12 +149,13 @@ public class ProjectEntity {
                 Objects.equals(hazardEntities, that.hazardEntities) &&
                 Objects.equals(lossEntities, that.lossEntities) &&
                 Objects.equals(systemGoalEntities, that.systemGoalEntities) &&
-                Objects.equals(assumptionEntities, that.assumptionEntities);
+                Objects.equals(assumptionEntities, that.assumptionEntities) &&
+                Objects.equals(systemSafetyConstraintEntities, that.systemSafetyConstraintEntities);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, description, url, type, hazardEntities, lossEntities, systemGoalEntities, assumptionEntities);
+        return Objects.hash(id, name, description, url, type, hazardEntities, lossEntities, systemGoalEntities, assumptionEntities, systemSafetyConstraintEntities);
     }
 
     @Override
@@ -155,6 +170,7 @@ public class ProjectEntity {
                 ", lossEntities=" + lossEntities +
                 ", systemGoalEntities=" + systemGoalEntities +
                 ", assumptionEntities=" + assumptionEntities +
+                ", systemSafetyConstraintEntities=" + systemSafetyConstraintEntities +
                 '}';
     }
 }

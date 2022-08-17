@@ -1,6 +1,6 @@
 var actual_modal; // 0 -> addProject 1 -> editProject //control the restrictions return
 
-function returnNamelessRestriction(){
+function returnNamelessRestriction(){ //quebrado tb, deveria voltar o ultimo modal aberto, e nao o do system goals
     $("#namelessRestrictionModal").modal("hide");
     if(actual_modal == 0)
         $("#addSystemGoalModal").modal("show");
@@ -89,26 +89,28 @@ $(window).ready(function () {
         }
     });
 
-    $.ajax({
-        "type": 'get',
-        "url": '/hazards/findByProjectId/' + project_id,
-        "dataType": "json",
-        "success": function (data) {
-            $.each(data, function (idx, obj) {
-                var ssc = null;
-                if(obj.systemSafetyConstraintEntity != null){
-                   ssc = obj.systemSafetyConstraintEntity;
-                   $("#systemSafetyConstraintsTable").append("<tr data-tt-id=\"" + ssc.id + "\" data-tt-parent-id=\"" + null + "\"><td>" + ssc.name + "</td><td>" + ssc.id + "</td><td><button style='cursor: pointer; border-radius: 5px;' data-toggle='modal' data-target='#editSystemSafetyConstraintModal' onclick = loadEditSystemSafetyConstraint(this.id) type='button' id=\"" + ssc.id + "\"><span class='fa fa-pencil' aria-hidden='true'></span></button><button style='cursor: pointer; border-radius: 5px;' data-toggle='modal' data-target='#confirmSystemSafetyConstraintDeleteModal' type='button' id=\"" + ssc.id + "\" onclick = loadSystemSafetyConstraintToBeDeleted(this.id)><span class='fa fa-trash'></span></button></td></tr>");
-                   $("#systemSafetyConstraintsTable").append("<tr data-tt-id=\"" + ssc.id + "-h-" + obj.id + "\" data-tt-parent-id=\"" + ssc.id + "\"><td>" + obj.name + "</td><td>" + obj.id + "</td><td></td></tr>");
-                }
-            });
-            $("#systemSafetyConstraintsTable").treetable({
-                expandable: true,
-                initialState: "collapsed",
-                clickableNodeNames: true,
-                indent: 30
-            });
-        }
+    $(window).ready(function () {
+        var project_id = $("#project_id").val();
+        $.ajax({
+            "type": 'get',
+            "url": '/systemsafetyconstraints/findByProjectId/' + project_id,
+            "dataType": "json",
+            "success": function (data) {
+                $.each(data, function (idx, obj) {
+                    console.log(obj);
+                    $("#systemSafetyConstraintsTable").append("<tr data-tt-id=\"" + obj.id + "\" data-tt-parent-id=\"" + obj.father + "\"><td>" + obj.name + "</td><td>" + obj.id + "</td><td><button style='cursor: pointer; border-radius: 5px;' data-toggle='modal' data-target='#editSystemSafetyConstraintModal' onclick = loadEditSystemSafetyConstraint(this.id) type='button' id=\"" + obj.id + "\"><span class='fa fa-pencil' aria-hidden='true'></span></button><button style='cursor: pointer; border-radius: 5px;' data-toggle='modal' data-target='#confirmSystemSafetyConstraintDeleteModal' type='button' id=\"" + obj.id + "\" onclick = loadSystemSafetyConstraintToBeDeleted(this.id)><span class='fa fa-trash'></span></button></td></tr>");
+                    $.each(obj.hazardEntities, function (idx, hazard) {
+                        $("#systemSafetyConstraintsTable").append("<tr data-tt-id=\"" + obj.id + "-h-" + hazard.id + "\" data-tt-parent-id=\"" + obj.id + "\"><td>" + hazard.name + "</td><td>" + hazard.id + "</td><td></td></tr>");
+                    });
+                });
+                $("#systemSafetyConstraintsTable").treetable({
+                    expandable: true,
+                    initialState: "collapsed",
+                    clickableNodeNames: true,
+                    indent: 30
+                });
+            }
+        });
     });
 
 });

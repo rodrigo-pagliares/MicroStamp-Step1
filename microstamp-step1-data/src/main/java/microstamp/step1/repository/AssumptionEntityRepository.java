@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface AssumptionEntityRepository extends JpaRepository<AssumptionEntity, Long> {
 
-    @Query(value = "SELECT * FROM assumption_entity WHERE project_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM assumptions WHERE project_id = ?1", nativeQuery = true)
     Optional<List<AssumptionEntity>> findByProjectId(Long id);
 
 }

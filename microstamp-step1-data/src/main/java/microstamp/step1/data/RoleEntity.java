@@ -2,7 +2,8 @@ package microstamp.step1.data;
 
 import javax.persistence.*;
 
-@Entity
+@Entity(name = "roles")
+@Table(name = "roles")
 public class RoleEntity {
 
     @Id

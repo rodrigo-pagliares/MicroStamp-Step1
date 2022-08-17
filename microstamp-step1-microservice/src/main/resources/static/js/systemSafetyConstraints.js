@@ -1,35 +1,11 @@
 var systemSafetyConstraintSelected;
 var systemSafetyConstraintToBeDeleted;
-var nullHazardFound;
-var hazard_modal;
-/*
-$(window).ready(function () {
-    var project_id = $("#project_id").val();
-    $.ajax({
-        "type": 'get',
-        "url": '/systemsafetyconstraints/findByProjectId/' + project_id,
-        "dataType": "json",
-        "success": function (data) {
-            $.each(data, function (idx, obj) {
-                console.log(obj);
-                $("#systemSafetyConstraintsTable").append("<tr data-tt-id=\"" + obj.id + "\" data-tt-parent-id=\"" + obj.father + "\"><td>" + obj.name + "</td><td>" + obj.id + "</td><td><button style='cursor: pointer; border-radius: 5px;' data-toggle='modal' data-target='#editSystemSafetyConstraintModal' onclick = loadEditSystemSafetyConstraint(this.id) type='button' id=\"" + obj.id + "\"><span class='fa fa-pencil' aria-hidden='true'></span></button><button style='cursor: pointer; border-radius: 5px;' data-toggle='modal' data-target='#confirmSystemSafetyConstraintDeleteModal' type='button' id=\"" + obj.id + "\" onclick = loadSystemSafetyConstraintToBeDeleted(this.id)><span class='fa fa-trash'></span></button></td></tr>");
-            });
-            $("#systemSafetyConstraintsTable").treetable({
-                expandable: true,
-                initialState: "expanded",
-                clickableNodeNames: true,
-                indent: 30
-            });
-        }
-    });
-});
-*/
 
-async function addSystemSafetyConstraint() {
+function addSystemSafetyConstraint() {
     var systemSafetyConstraint = {
         name: $("#system-safety-constraint-name").val(),
         projectId: $("#project_id").val(),
-        hazardId: $("#system-safety-constraint-hazard").val(),
+        hazardsId: $("#system-safety-constraint-hazards").val(),
     }
 
     $('#target').html('sending..');
@@ -39,23 +15,16 @@ async function addSystemSafetyConstraint() {
         actual_modal = 0;
         $("#namelessRestrictionModal").modal("show");
     }else{
-        await checkSelectedHazard($("#system-safety-constraint-hazard").val())
-        if(nullHazardFound){
-            $.ajax({
-                url: '/systemsafetyconstraints',
-                type: 'post',
-                dataType: 'text',
-                contentType: 'application/json',
-                success: function (data) {
-                    location.reload();
-                },
-                data: JSON.stringify(systemSafetyConstraint)
-            });
-        }else{
-            $("#addSystemSafetyConstraintModal").modal("hide");
-            hazard_modal = 0;
-            $("#hazardRestrictionModal").modal("show");
-        }
+        $.ajax({
+            url: '/systemsafetyconstraints',
+            type: 'post',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (data) {
+                location.reload();
+            },
+            data: JSON.stringify(systemSafetyConstraint)
+        });
     }
 }
 
@@ -70,10 +39,10 @@ function loadEditSystemSafetyConstraint(id){
     });
 }
 
-async function editSystemSafetyConstraint() {
+function editSystemSafetyConstraint() {
     var systemSafetyConstraint = {
         name: $("#system-safety-constraint-edit-name").val(),
-        hazardId: $("#system-safety-constraint-edit-hazard").val(),
+        hazardsId: $("#system-safety-constraint-edit-hazards").val(),
     }
 
     $('#target').html('sending..');
@@ -83,23 +52,16 @@ async function editSystemSafetyConstraint() {
         actual_modal = 1;
         $("#namelessRestrictionModal").modal("show");
     }else{
-        await checkSelectedHazard($("#system-safety-constraint-edit-hazard").val())
-        if(nullHazardFound){
-            $.ajax({
-                url: '/systemsafetyconstraints/' + systemSafetyConstraintSelected,
-                type: 'put',
-                dataType: 'text',
-                contentType: 'application/json',
-                success: function (data) {
-                    location.reload();
-                },
-                data: JSON.stringify(systemSafetyConstraint)
-            });
-        }else{
-            $("#editSystemSafetyConstraintModal").modal("hide");
-            hazard_modal = 1;
-            $("#hazardRestrictionModal").modal("show");
-        }
+        $.ajax({
+            url: '/systemsafetyconstraints/' + systemSafetyConstraintSelected,
+            type: 'put',
+            dataType: 'text',
+            contentType: 'application/json',
+            success: function (data) {
+                location.reload();
+            },
+            data: JSON.stringify(systemSafetyConstraint)
+        });
     }
 }
 
@@ -124,26 +86,3 @@ function deleteSystemSafetyConstraint(){
     });
 }
 
-async function checkSelectedHazard(hazardId){
-    var project_id = $("#project_id").val();
-    nullHazardFound = false;
-    await $.ajax({
-       url: '/hazards/findUnselectedHazardsByProject/'+ project_id,
-       type: 'get',
-       success: function (data) {
-           $.each(data, function (idx, obj) {
-               if(obj.id == hazardId){
-                   nullHazardFound = true;
-               }
-           });
-       },
-    });
-}
-
-function returnHazardRestriction(){
-    $("#hazardRestrictionModal").modal("hide");
-    if(hazard_modal == 0)
-        $("#addSystemSafetyConstraintModal").modal("show");
-    else
-        $("#editSystemSafetyConstraintModal").modal("show");
-}

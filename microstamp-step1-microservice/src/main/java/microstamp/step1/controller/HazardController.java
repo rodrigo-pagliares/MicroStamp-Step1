@@ -33,11 +33,6 @@ public class HazardController {
         return new ResponseEntity<>(hazardBusiness.findByProjectId(id), HttpStatus.OK);
     }
 
-    @GetMapping("/findUnselectedHazardsByProject/{id}")
-    public ResponseEntity<List<HazardEntity>> findUnselectedHazardsByProject(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
-        return new ResponseEntity<>(hazardBusiness.findUnselectedHazardsByProject(id), HttpStatus.OK);
-    }
-
     @PostMapping
     public ResponseEntity<HazardEntity> insert(@RequestBody HazardDto hazardDto){
         return new ResponseEntity<>(hazardBusiness.insert(hazardDto), HttpStatus.CREATED);

@@ -13,10 +13,10 @@ public interface ProjectEntityRepository extends JpaRepository<ProjectEntity, Lo
 
     Optional<ProjectEntity> findByUrl(String url);
 
-    @Query(value = "SELECT * FROM project_entity p WHERE p.user_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM projects p WHERE p.user_id = ?1", nativeQuery = true)
     Optional<List<ProjectEntity>> findProjectsByUserId(long id);
 
-    @Query(value = "SELECT * FROM project_entity p WHERE p.user_id = 3", nativeQuery = true)
+    @Query(value = "SELECT * FROM projects p WHERE p.user_id = 3", nativeQuery = true)
     Optional<List<ProjectEntity>> findProjectsForGuests();
 
 }

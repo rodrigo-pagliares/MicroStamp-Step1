@@ -78,27 +78,29 @@ $(window).ready(function () {
         }
     });
 
-    $.ajax({
-        "type": 'get',
-        "url": '/guests-request/hazards/' + project_id,
-        "dataType": "json",
-        "success": function (data) {
-            $.each(data, function (idx, obj) {
-                var ssc = null;
-                if(obj.systemSafetyConstraintEntity != null){
-                   ssc = obj.systemSafetyConstraintEntity;
-                   $("#guestsSystemSafetyConstraintsTable").append("<tr data-tt-id=\"" + ssc.id + "\" data-tt-parent-id=\"" + ssc.father + "\"><td>" + ssc.name + "</td><td>" + ssc.id + "</td><td></td></tr>");
-                   $("#guestsSystemSafetyConstraintsTable").append("<tr data-tt-id=\"" + ssc.id + "-h-" + obj.id + "\" data-tt-parent-id=\"" + ssc.id + "\"><td>" + obj.name + "</td><td>" + obj.id + "</td><td></td></tr>");
+    $(window).ready(function () {
+            var project_id = $("#project_id").val();
+            $.ajax({
+                "type": 'get',
+                "url": '/guests-request/systemsafetyconstraints/' + project_id,
+                "dataType": "json",
+                "success": function (data) {
+                    $.each(data, function (idx, obj) {
+                        console.log(obj);
+                        $("#guestsSystemSafetyConstraintsTable").append("<tr data-tt-id=\"" + obj.id + "\" data-tt-parent-id=\"" + obj.father + "\"><td>" + obj.name + "</td><td>" + obj.id + "</td><td></td></tr>");
+                        $.each(obj.hazardEntities, function (idx, hazard) {
+                            $("#guestsSystemSafetyConstraintsTable").append("<tr data-tt-id=\"" + obj.id + "-h-" + hazard.id + "\" data-tt-parent-id=\"" + obj.id + "\"><td>" + hazard.name + "</td><td>" + hazard.id + "</td><td></td></tr>");
+                        });
+                    });
+                    $("#guestsSystemSafetyConstraintsTable").treetable({
+                        expandable: true,
+                        initialState: "collapsed",
+                        clickableNodeNames: true,
+                        indent: 30
+                    });
                 }
             });
-            $("#guestsSystemSafetyConstraintsTable").treetable({
-                expandable: true,
-                initialState: "collapsed",
-                clickableNodeNames: true,
-                indent: 30
-            });
-        }
-    });
+        });
 
 });
 

@@ -14,16 +14,10 @@ import java.util.Optional;
 @Repository
 public interface HazardEntityRepository extends JpaRepository<HazardEntity, Long> {
 
-    @Query(value = "SELECT * FROM hazard_entity h WHERE h.ssc_id = ?1", nativeQuery = true)
-    HazardEntity findBySscId(Long id);
-
-    @Query(value = "SELECT * FROM hazard_entity WHERE project_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM hazards WHERE project_id = ?1", nativeQuery = true)
     Optional<List<HazardEntity>> findByProjectId(Long id);
 
-    @Query(value = "SELECT * FROM hazard_entity WHERE project_id = ?1 AND ssc_id IS NULL", nativeQuery = true)
-    Optional<List<HazardEntity>> findUnselectedHazardsByProject(Long id);
-
-    @Query(value = "SELECT * FROM hazard_entity WHERE father_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM hazards WHERE father_id = ?1", nativeQuery = true)
     Optional<List<HazardEntity>> findHazardChildren(Long id);
 
     @Modifying(clearAutomatically = true)

@@ -9,7 +9,6 @@ import microstamp.step1.repository.HazardEntityRepository;
 import microstamp.step1.repository.LossEntityRepository;
 import microstamp.step1.repository.ProjectEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -40,12 +39,6 @@ public class HazardBusiness {
     public List<HazardEntity> findByProjectId(Long id) throws Step1NotFoundException{
         List<HazardEntity> hazardEntities = hazardEntityRepository.findByProjectId(id)
                 .orElseThrow(() -> new Step1NotFoundException("Hazards not found with projectId: " + id));
-        return hazardEntities;
-    }
-
-    public List<HazardEntity> findUnselectedHazardsByProject(Long id) throws Step1NotFoundException{
-        List<HazardEntity> hazardEntities = hazardEntityRepository.findUnselectedHazardsByProject(id)
-                .orElseThrow(() -> new Step1NotFoundException("Unselected Hazards not found with projectId: " + id));
         return hazardEntities;
     }
 
@@ -97,14 +90,8 @@ public class HazardBusiness {
 
     public void deleteHazardAndChildren(Long id){
         List<HazardEntity> children = hazardEntityRepository.findHazardChildren(id).get();
-        System.out.println("deleting..." + id);
         for(HazardEntity h : children){
-            //h.setLossEntities(null);
-            //hazardEntityRepository.save(h);
-            System.out.println("trying delete..." + h.getId());
             deleteHazardAndChildren(h.getId());
-            System.out.println("finally deleting..." + id);
-
         }
         hazardEntityRepository.deleteLossesAssociated(id);
         hazardEntityRepository.deleteById(id);

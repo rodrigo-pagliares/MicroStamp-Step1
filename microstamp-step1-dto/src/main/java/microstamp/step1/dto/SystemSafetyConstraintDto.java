@@ -1,5 +1,6 @@
 package microstamp.step1.dto;
 
+import java.util.List;
 import java.util.Objects;
 
 public class SystemSafetyConstraintDto {
@@ -8,15 +9,15 @@ public class SystemSafetyConstraintDto {
 
     private Long projectId;
 
-    private Long hazardId;
+    private List<Long> hazardsId;
 
     public SystemSafetyConstraintDto(){
     }
 
-    public SystemSafetyConstraintDto(String name, Long projectId, Long hazardId) {
+    public SystemSafetyConstraintDto(String name, Long projectId, List<Long> hazardsId) {
         this.name = name;
         this.projectId = projectId;
-        this.hazardId = hazardId;
+        this.hazardsId = hazardsId;
     }
 
     public String getName() {
@@ -35,12 +36,12 @@ public class SystemSafetyConstraintDto {
         this.projectId = projectId;
     }
 
-    public Long getHazardId() {
-        return hazardId;
+    public List<Long> getHazardsId() {
+        return hazardsId;
     }
 
-    public void setHazardId(Long hazardId) {
-        this.hazardId = hazardId;
+    public void setHazardsId(List<Long> hazardsId) {
+        this.hazardsId = hazardsId;
     }
 
     @Override
@@ -50,12 +51,12 @@ public class SystemSafetyConstraintDto {
         SystemSafetyConstraintDto that = (SystemSafetyConstraintDto) o;
         return Objects.equals(name, that.name) &&
                 Objects.equals(projectId, that.projectId) &&
-                Objects.equals(hazardId, that.hazardId);
+                Objects.equals(hazardsId, that.hazardsId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, projectId, hazardId);
+        return Objects.hash(name, projectId, hazardsId);
     }
 
     @Override
@@ -63,7 +64,7 @@ public class SystemSafetyConstraintDto {
         return "SystemSafetyConstraintDto{" +
                 "name='" + name + '\'' +
                 ", projectId=" + projectId +
-                ", hazardId=" + hazardId +
+                ", hazardsId=" + hazardsId +
                 '}';
     }
 }

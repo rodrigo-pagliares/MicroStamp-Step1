@@ -29,6 +29,9 @@ public class GuestController {
     @Autowired
     private HazardBusiness hazardBusiness;
 
+    @Autowired
+    private SystemSafetyConstraintBusiness systemSafetyConstraintBusiness;
+
     @GetMapping("/projects")
     public ResponseEntity<List<ProjectEntity>> findGuestsProjects(){
         return new ResponseEntity<>(projectBusiness.findGuestsProjects(), HttpStatus.OK);
@@ -52,6 +55,11 @@ public class GuestController {
     @GetMapping("/hazards/{id}")
     public ResponseEntity<List<HazardEntity>> findGuestsHazards(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
         return new ResponseEntity<>(hazardBusiness.findByProjectId(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/systemsafetyconstraints/{id}")
+    public ResponseEntity<List<SystemSafetyConstraintEntity>> findGuestsSystemSafetyConstraints(@PathVariable(name = "id") Long id) throws Step1NotFoundException {
+        return new ResponseEntity<>(systemSafetyConstraintBusiness.findByProjectId(id), HttpStatus.OK);
     }
 
 }
