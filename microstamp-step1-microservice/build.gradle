@@ -40,6 +40,11 @@ mainClassName = 'microstamp.step1.Step1Application'
 
 
 jar {
+	manifest {
+		attributes(
+				'Main-Class': 'microstamp.step1.Step1Application'
+		)
+	}
 	enabled = true
 }
 
