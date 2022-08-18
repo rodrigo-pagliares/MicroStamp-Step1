@@ -1,0 +1,1 @@
+web: java -jar microstamp-step1-microservice/target/microstamp-step1-microservice-2.2.0.jar
