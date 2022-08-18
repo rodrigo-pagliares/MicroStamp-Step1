@@ -41,7 +41,7 @@ public class SystemGoalBusiness {
     public SystemGoalDto insert(SystemGoalDto systemGoalDto){
         SystemGoalEntity systemGoalEntity = new SystemGoalEntity();
         systemGoalEntity.setName(systemGoalDto.getName());
-        ProjectEntity projectEntity = projectEntityRepository.getById(systemGoalDto.getProjectId());
+        ProjectEntity projectEntity = projectEntityRepository.findById(systemGoalDto.getProjectId()).get();
         projectEntity.getSystemGoalEntities().add(systemGoalEntity);
         projectEntityRepository.save(projectEntity);
         return SystemGoalConverter.toDto(systemGoalEntity, projectEntity.getId());
