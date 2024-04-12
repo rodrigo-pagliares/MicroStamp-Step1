@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
-    <div class="container" align="Left" style="margin-left: 2em;">
+    <div class="container" align="Left" style="margin-left: 2em; color: black;">
         <h1 style="margin-top: 0.5cm;">MicroSTAMP Step 1</h1>
         <br/>
         <div align="Left">
@@ -19,7 +19,7 @@
                 <div th:switch="${systemGoals.size}">
                     <h5 th:case='0'>No System Goals yet!</h5>
                     <div th:case="*">
-                        <div class="row">
+                        <div class="row" style="margin-top: -3%;">
                             <div class="col mt-5">
                                 <table id="systemGoalsTable" class="table">
                                     <thead>
@@ -42,7 +42,7 @@
                 <div th:switch="${assumptions.size}">
                     <h5 th:case='0'>No Assumptions yet!</h5>
                     <div th:case="*">
-                        <div class="row">
+                        <div class="row" style="margin-top: -3%;">
                             <div class="col mt-5">
                                 <table id="assumptionsTable" class="table">
                                     <thead>
@@ -65,7 +65,7 @@
                 <div th:switch="${losses.size}">
                     <h5 th:case='0'>No Losses yet!</h5>
                     <div th:case="*">
-                        <div class="row">
+                        <div class="row" style="margin-top: -3%;">
                             <div class="col mt-5">
                                 <table id="lossesTable" class="table">
                                     <thead>
@@ -89,7 +89,7 @@
                 <div th:switch="${hazards.size}">
                     <h5 th:case='0'>No Hazards yet!</h5>
                     <div th:case="*">
-                        <div class="row">
+                        <div class="row" style="margin-top: -3%;">
                             <div class="col mt-5">
                                 <table id="hazardsTable" class="table">
                                     <thead>
@@ -113,7 +113,7 @@
                 <div th:switch="${systemSafetyConstraints.size}">
                     <h5 th:case='0'>No System Safety Constraints yet!</h5>
                     <div th:case="*">
-                        <div class="row">
+                        <div class="row" style="margin-top: -3%;">
                             <div class="col mt-5">
                                 <table id="systemSafetyConstraintsTable" class="table">
                                     <thead>
@@ -151,8 +151,9 @@
                 <a th:href="@{/home}" style="float: right;">
                     <input type="button" class="btn btn-secondary" value="Return"/>
                 </a>
-
+                <br/>
             </div>
+            <br/>
         </div>
     </div>
 

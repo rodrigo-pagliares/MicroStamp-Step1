@@ -1,5 +1,6 @@
 package microstamp.step1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microstamp.step1.business.*;
 import microstamp.step1.data.*;
 import microstamp.step1.exception.Step1NotFoundException;
@@ -12,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/guests-request")
+@Tag(name = "Guest")
 public class GuestController {
 
     @Autowired

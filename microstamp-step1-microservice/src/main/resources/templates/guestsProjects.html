@@ -9,12 +9,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
 </head>
 <body>
-    <div align="Left" style="margin-left: 2em;">
+    <div align="Left" style="margin-left: 2em; color: black;">
         <h1 style="margin-top: 0.5cm;">MicroSTAMP Step 1</h1>
+        <br/>
         <div align="Left">
             <div>
                 <h2>Projects</h2>
-                <div class="container" style="margin-left: 2%;">
+                <div class="container" style="margin-left: 2%; margin-top: -3%;">
                     <div th:switch="${projects.size}">
                         <h5 th:case='0'>No Projects yet!</h5>
                         <div th:case="*">
