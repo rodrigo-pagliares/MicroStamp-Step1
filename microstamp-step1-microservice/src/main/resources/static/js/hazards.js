@@ -36,7 +36,7 @@ function loadEditHazard(id){
         type: 'get',
         success: function (data) {
             $("#hazard-edit-name").val(data.name);
-            $("#hazard-edit-losses").val(data.lossEntities); //quebrado :(
+            $("#hazard-edit-losses").val(data.lossEntities);
             if(data.father == null){
                 $("#hazard-edit-father").val("null");
             }else{

@@ -1,6 +1,6 @@
 var actual_modal; // 0 -> addProject 1 -> editProject //control the restrictions return
 
-function returnNamelessRestriction(){ //quebrado tb, deveria voltar o ultimo modal aberto, e nao o do system goals
+function returnNamelessRestriction(){
     $("#namelessRestrictionModal").modal("hide");
     if(actual_modal == 0)
         $("#addSystemGoalModal").modal("show");

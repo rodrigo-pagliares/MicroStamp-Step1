@@ -43,11 +43,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                //.antMatchers("/controlstructures/**").hasAnyAuthority("USER","ADMIN")
-                //.antMatchers("/components/**").hasAnyAuthority("USER","ADMIN")
                 .antMatchers("/guests/**").permitAll()
                 .antMatchers("/guests-request/**").permitAll()
+                .antMatchers("/swagger/**").permitAll()
                 .antMatchers("/swagger-ui/**").permitAll()
+                .antMatchers("/v3/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin().permitAll()
@@ -56,26 +56,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .exceptionHandling().accessDeniedPage("/403")
                 ;
-
-        //http.authorizeRequests().antMatchers("/").permitAll();
-
     }
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-      /*  web.ignoring()
-                .antMatchers("/controlstructures/**",
-                        "/components/**",
-                        "/actuators/**",
-                        "/sensors/**",
-                        "/controllers/**",
-                        "/controlledProcesses/**",
-                        "/connections/**",
-                        "/images/**",
-                        "/labels/**",
-                        "/variables/**",
-                        "/states/**",
-                        "/guests/**")*/
             web.ignoring()
                     .antMatchers("/guests/**","/static/**","/webjars/**","/assets/**", "/guests-request/**", "/projects/**", "/systemgoals/**", "/assumptions/**", "/losses/**", "/hazards/**", "/systemsafetyconstraints/**", "/js/**")
                     //.antMatchers("/controlstructures/**", "/components/**", "/actuators/**", "/sensors/**", "/controllers/**","/controlledProcesses/**","/connections/**","/images/**","/labels/**", "/variables/**", "/states/**", "/responsibilities/**")
