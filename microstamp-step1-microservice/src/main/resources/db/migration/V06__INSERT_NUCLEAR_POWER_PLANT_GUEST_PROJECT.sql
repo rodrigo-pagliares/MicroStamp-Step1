@@ -2,6 +2,32 @@ INSERT INTO projects (id, description, name, type, url, user_id)
 VALUES(2, "Nuclear Power Plant example", "Nuclear Power Plant", null, null, 3);
 
 
+INSERT INTO system_goals(name,project_id)
+VALUES ("SG-1: Ensure the safety of personnel working at the nuclear power plant, preventing any loss of life or injury",2);
+
+INSERT INTO system_goals(name,project_id)
+VALUES ("SG-2: Prevent damage to the nuclear power plant infrastructure, including the facility itself and any associated vehicles",2);
+
+INSERT INTO system_goals(name,project_id)
+VALUES ("SG-3: Minimize environmental losses such as the release of dangerous materials and ensure the safety of surrounding areas",2);
+
+INSERT INTO system_goals(name,project_id)
+VALUES ("SG-4: Ensure uninterrupted power generation to prevent any loss of power and maintain reliability in energy supply",2);
+
+INSERT INTO system_goals(name,project_id)
+VALUES ("SG-5: Protect the integrity of the nuclear power plant's mission, ensuring continuous operation and functionality",2);
+
+
+INSERT INTO assumptions(name,project_id)
+VALUES ("A-1: The nuclear power plant adheres to all relevant safety regulations and standards to mitigate hazards and ensure operational safety",2);
+
+INSERT INTO assumptions(name,project_id)
+VALUES ("A-2: The nuclear power plant employs robust monitoring and surveillance systems to detect and mitigate potential hazards in real-time",2);
+
+INSERT INTO assumptions(name,project_id)
+VALUES ("A-3: Personnel working at the nuclear power plant are adequately trained and possess the necessary expertise to operate the facility safely and respond to emergencies effectively",2);
+
+
 INSERT INTO losses (id, name, project_id)
 VALUES(4, "L-1: Loss of life or injury to people", 2);
 
@@ -27,7 +53,6 @@ INSERT INTO losses (id, name, project_id)
 VALUES(11, "L-8: Loss of power generation", 2);
 
 
-
 INSERT INTO system_safety_constraints (id, name, project_id)
 VALUES(7, "SC-1: Aircraft must satisfy minimum separation standards from other aircraft and objects", 2);
 
@@ -45,7 +70,6 @@ VALUES(11, "SC-6.2: Asymmetric deceleration must not lead to loss of directional
 
 INSERT INTO system_safety_constraints (id, name, project_id)
 VALUES(12, "SC-6.3: Deceleration must not be provided after V1 point during takeoff", 2);
-
 
 
 INSERT INTO hazards (id, name, father_id, project_id)
