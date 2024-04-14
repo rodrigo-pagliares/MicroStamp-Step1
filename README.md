@@ -11,7 +11,7 @@ For building and running the application you need:
 ## Steps to Execute
 
 1. **Clone Project**: Clone this repository to your local machine.
-2. **Configure `application.properties`**: Set up your SQL configurations in the `application.properties` file located in the `src/main/resources` directory. By default, it assumes port 3306 and "step1" as the database name. Ensure to provide the correct URL, port, username, and password for your SQL database.
+2. **Configure `application.properties`**: Set up your SQL configurations in the `application.properties` file located in the `microstamp-step1-microservice/src/main/resources` directory. By default, it assumes port 3306 and "step1" as the database name. Ensure to provide the correct URL, port, username, and password for your SQL database.
 3. **Create SQL Database**: Create the required SQL database as configured in the `application.properties` file.
 4. **Run the Project**:
     - Open a terminal.
