@@ -1,5 +1,6 @@
 package microstamp.step1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microstamp.step1.business.HazardBusiness;
 import microstamp.step1.data.HazardEntity;
 import microstamp.step1.dto.HazardDto;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/hazards")
+@Tag(name = "Hazard")
 public class HazardController {
 
     @Autowired

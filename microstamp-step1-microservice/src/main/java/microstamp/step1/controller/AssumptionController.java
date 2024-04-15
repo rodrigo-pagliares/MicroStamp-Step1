@@ -1,5 +1,6 @@
 package microstamp.step1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microstamp.step1.business.AssumptionBusiness;
 import microstamp.step1.data.AssumptionEntity;
 import microstamp.step1.dto.AssumptionDto;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/assumptions")
+@Tag(name = "Assumption")
 public class AssumptionController {
 
     @Autowired

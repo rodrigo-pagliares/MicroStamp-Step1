@@ -1,5 +1,6 @@
 package microstamp.step1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microstamp.step1.business.ProjectBusiness;
 import microstamp.step1.data.ProjectEntity;
 import microstamp.step1.dto.ProjectDto;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/projects")
+@Tag(name = "Project")
 public class ProjectController {
 
     @Autowired
@@ -31,6 +33,11 @@ public class ProjectController {
     @GetMapping("/findByUrl/{url}")
     public ResponseEntity<ProjectEntity> findByUrl(@PathVariable(name = "url") String url) throws Step1NotFoundException {
         return new ResponseEntity<>(projectBusiness.findByUrl(url), HttpStatus.OK);
+    }
+
+    @GetMapping(path = {"user/{id}"})
+    public ResponseEntity<List<ProjectEntity>> findByUserId(@PathVariable long id){
+        return new ResponseEntity<>(projectBusiness.findByUserId(id), HttpStatus.OK);
     }
 
     @PostMapping

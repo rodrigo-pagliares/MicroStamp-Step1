@@ -11,13 +11,16 @@ public class HazardDto {
 
     private List<Long> lossIds;
 
+    private Long fatherId;
+
     public HazardDto() {
     }
 
-    public HazardDto(String name, Long projectId, List<Long> lossIds) {
+    public HazardDto(String name, Long projectId, List<Long> lossIds, Long fatherId) {
         this.name = name;
         this.projectId = projectId;
         this.lossIds = lossIds;
+        this.fatherId = fatherId;
     }
 
     public String getName() {
@@ -44,6 +47,14 @@ public class HazardDto {
         this.lossIds = lossIds;
     }
 
+    public Long getFatherId() {
+        return fatherId;
+    }
+
+    public void setFatherId(Long fatherId) {
+        this.fatherId = fatherId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -51,12 +62,13 @@ public class HazardDto {
         HazardDto hazardDto = (HazardDto) o;
         return Objects.equals(name, hazardDto.name) &&
                 Objects.equals(projectId, hazardDto.projectId) &&
-                Objects.equals(lossIds, hazardDto.lossIds);
+                Objects.equals(lossIds, hazardDto.lossIds) &&
+                Objects.equals(fatherId, hazardDto.fatherId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, projectId, lossIds);
+        return Objects.hash(name, projectId, lossIds, fatherId);
     }
 
     @Override
@@ -65,6 +77,7 @@ public class HazardDto {
                 "name='" + name + '\'' +
                 ", projectId=" + projectId +
                 ", lossIds=" + lossIds +
+                ", fatherId=" + fatherId +
                 '}';
     }
 }

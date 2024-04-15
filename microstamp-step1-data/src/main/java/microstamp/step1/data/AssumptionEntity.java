@@ -1,12 +1,10 @@
 package microstamp.step1.data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "assumptions")
+@Table(name = "assumptions")
 public class AssumptionEntity {
 
     @Id

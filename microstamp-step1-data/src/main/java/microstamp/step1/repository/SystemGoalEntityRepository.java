@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface SystemGoalEntityRepository extends JpaRepository<SystemGoalEntity, Long> {
 
-    @Query(value = "SELECT * FROM system_goal_entity WHERE project_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM system_goals WHERE project_id = ?1", nativeQuery = true)
     Optional<List<SystemGoalEntity>> findByProjectId(Long id);
 
 }

@@ -1,5 +1,6 @@
 package microstamp.step1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microstamp.step1.business.SystemGoalBusiness;
 import microstamp.step1.data.SystemGoalEntity;
 import microstamp.step1.dto.SystemGoalDto;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/systemgoals")
+@Tag(name = "SystemGoal")
 public class SystemGoalController {
 
     @Autowired

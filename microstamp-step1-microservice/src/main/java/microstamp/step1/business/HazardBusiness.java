@@ -9,7 +9,6 @@ import microstamp.step1.repository.HazardEntityRepository;
 import microstamp.step1.repository.LossEntityRepository;
 import microstamp.step1.repository.ProjectEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -48,10 +47,17 @@ public class HazardBusiness {
         hazardEntity.setName(hazardDto.getName());
 
         List<LossEntity> lossEntities = new ArrayList<>();
-        for(Long id : hazardDto.getLossIds())
-            lossEntities.add(lossEntityRepository.findById(id).get());
-
+        if(hazardDto.getLossIds() != null) {
+            for (Long id : hazardDto.getLossIds())
+                lossEntities.add(lossEntityRepository.findById(id).get());
+        }
         hazardEntity.setLossEntities(lossEntities);
+        try{
+            HazardEntity father = hazardEntityRepository.findById(hazardDto.getFatherId()).get();
+            hazardEntity.setFather(father);
+        }catch (Exception ex){
+            hazardEntity.setFather(null);
+        }
         ProjectEntity projectEntity = projectEntityRepository.findById(hazardDto.getProjectId()).get();
         projectEntity.getHazardEntities().add(hazardEntity);
         projectEntityRepository.save(projectEntity);
@@ -63,20 +69,32 @@ public class HazardBusiness {
                 .map(record -> {
                     record.setName(hazardDto.getName());
                     List<LossEntity> lossEntities = new ArrayList<>();
-                    for(Long lossId : hazardDto.getLossIds())
-                        lossEntities.add(lossEntityRepository.findById(lossId).get());
+                    if(hazardDto.getLossIds() != null) {
+                        for (Long lossId : hazardDto.getLossIds())
+                            lossEntities.add(lossEntityRepository.findById(lossId).get());
+                    }
                     record.setLossEntities(lossEntities);
+                    try{
+                        HazardEntity father = hazardEntityRepository.findById(hazardDto.getFatherId()).get();
+                        record.setFather(father);
+                    }catch(Exception ex){
+                        record.setFather(null);
+                    }
                     return hazardEntityRepository.save(record);
                 }).orElseThrow(() -> new Step1NotFoundException("Hazard not found with id: " + id));
     }
 
     public void delete(Long id) throws Step1NotFoundException{
-        hazardEntityRepository.findById(id)
-                .map(record -> {
-                    record.setLossEntities(null);
-                    hazardEntityRepository.deleteById(id);
-                    return ResponseEntity.ok().build();
-                }).orElseThrow(() -> new Step1NotFoundException("Hazard not found with id: " + id));
+        deleteHazardAndChildren(id);
+    }
+
+    public void deleteHazardAndChildren(Long id){
+        List<HazardEntity> children = hazardEntityRepository.findHazardChildren(id).get();
+        for(HazardEntity h : children){
+            deleteHazardAndChildren(h.getId());
+        }
+        hazardEntityRepository.deleteLossesAssociated(id);
+        hazardEntityRepository.deleteById(id);
     }
 
 }

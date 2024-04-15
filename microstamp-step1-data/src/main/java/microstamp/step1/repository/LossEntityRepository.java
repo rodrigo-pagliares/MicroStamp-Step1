@@ -11,7 +11,7 @@ import java.util.Optional;
 @Repository
 public interface LossEntityRepository extends JpaRepository<LossEntity, Long> {
 
-    @Query(value = "SELECT * FROM loss_entity WHERE project_id = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM losses WHERE project_id = ?1", nativeQuery = true)
     Optional<List<LossEntity>> findByProjectId(Long id);
 
 }

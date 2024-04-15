@@ -1,5 +1,6 @@
 package microstamp.step1.controller;
 
+import io.swagger.v3.oas.annotations.tags.Tag;
 import microstamp.step1.business.LossBusiness;
 import microstamp.step1.data.LossEntity;
 import microstamp.step1.dto.LossDto;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/losses")
+@Tag(name = "Loss")
 public class LossController {
 
     @Autowired

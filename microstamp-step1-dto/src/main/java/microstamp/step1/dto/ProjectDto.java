@@ -12,6 +12,8 @@ public class ProjectDto {
 
     private String type;
 
+    private Long userId;
+
     public ProjectDto(){
     }
 
@@ -54,6 +56,14 @@ public class ProjectDto {
         this.type = type;
     }
 
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -62,12 +72,13 @@ public class ProjectDto {
         return Objects.equals(name, that.name) &&
                 Objects.equals(description, that.description) &&
                 Objects.equals(url, that.url) &&
-                Objects.equals(type, that.type);
+                Objects.equals(type, that.type) &&
+                Objects.equals(userId, that.userId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, description, url, type);
+        return Objects.hash(name, description, url, type, userId);
     }
 
     @Override
@@ -77,6 +88,7 @@ public class ProjectDto {
                 ", description='" + description + '\'' +
                 ", url='" + url + '\'' +
                 ", type='" + type + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }

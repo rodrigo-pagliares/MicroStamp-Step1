@@ -4,6 +4,7 @@ import microstamp.step1.data.ProjectEntity;
 import microstamp.step1.dto.ProjectDto;
 import microstamp.step1.exception.Step1NotFoundException;
 import microstamp.step1.repository.ProjectEntityRepository;
+import microstamp.step1.repository.UserEntityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -15,6 +16,9 @@ public class ProjectBusiness {
 
     @Autowired
     private ProjectEntityRepository projectEntityRepository;
+
+    @Autowired
+    private UserEntityRepository userEntityRepository;
 
     public List<ProjectEntity> findAll(){
         return projectEntityRepository.findAll();
@@ -32,12 +36,25 @@ public class ProjectBusiness {
         return projectEntity;
     }
 
+    public List<ProjectEntity> findByUserId(long id) throws Step1NotFoundException{
+        List<ProjectEntity> projectEntities = projectEntityRepository.findProjectsByUserId(id)
+                .orElseThrow(() -> new Step1NotFoundException("Projects not found for user: " + id));
+        return projectEntities;
+    }
+
+    public List<ProjectEntity> findGuestsProjects() throws Step1NotFoundException{
+        List<ProjectEntity> projectEntities = projectEntityRepository.findProjectsForGuests()
+                .orElseThrow(() -> new Step1NotFoundException("Projects for guests not found"));
+        return projectEntities;
+    }
+
     public ProjectEntity insert(ProjectDto projectDto){
         ProjectEntity projectEntity = new ProjectEntity();
         projectEntity.setName(projectDto.getName());
         projectEntity.setDescription(projectDto.getDescription());
         projectEntity.setUrl(projectDto.getUrl());
         projectEntity.setType(projectDto.getType());
+        userEntityRepository.findById(projectDto.getUserId()).get().getProjects().add(projectEntity);
         projectEntityRepository.save(projectEntity);
         return projectEntity;
     }
